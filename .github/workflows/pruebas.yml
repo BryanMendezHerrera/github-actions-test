@@ -16,7 +16,7 @@ jobs:
       - name: Configuración de entorno de python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
+          python-version: '3.11'
 
       - name: Instalación de librerías y dependencias
         run: |
@@ -28,5 +28,5 @@ jobs:
 
       - name: Cálculo de cubrimiento
         run: |
-          coverage run -m unittest tests/test_persona.py
-          coverage report -m
+          python -m coverage run -m unittest tests/test_persona.py
+          python -m coverage report -m
