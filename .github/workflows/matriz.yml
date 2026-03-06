@@ -1,0 +1,31 @@
+name: Pruebas en múltiples sistemas
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  pruebas-matriz:
+    name: Tests en ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout de repositorio
+        uses: actions/checkout@v2
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Ejecutar pruebas
+        run: python -m unittest -v tests/test_persona.py
